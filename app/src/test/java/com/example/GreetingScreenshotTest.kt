@@ -1,7 +1,7 @@
 package com.example
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Article
+import androidx.compose.material.icons.automirrored.filled.Article
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
 import com.example.ui.components.ClayStatCard
@@ -19,7 +19,7 @@ import org.robolectric.annotation.GraphicsMode
 
 @RunWith(RobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
-@Config(qualifiers = RobolectricDeviceQualifiers.Pixel8, sdk = [36])
+@Config(qualifiers = RobolectricDeviceQualifiers.Pixel8, sdk = [34])
 class GreetingScreenshotTest {
 
   @get:Rule val composeTestRule = createComposeRule()
@@ -31,7 +31,7 @@ class GreetingScreenshotTest {
         ClayStatCard(
           title = "Total Articles",
           value = "42",
-          icon = Icons.Default.Article,
+          icon = Icons.AutoMirrored.Filled.Article,
           accentColor = ClayBlue,
           containerColor = ClayBlueContainer
         )
