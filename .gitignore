@@ -1,0 +1,42 @@
+# ==============================================================================
+# AI NEWSROOM AUTOMATION - GITIGNORE
+# ==============================================================================
+
+# Gradle & Build Artifacts
+.gradle/
+build/
+app/build/
+*.apk
+*.aab
+.build-outputs/
+
+# Local configuration and Secrets
+local.properties
+.env
+.env.local
+.env.production
+.env.staging
+*.key
+*.pem
+*.jks
+*.keystore
+secrets/
+
+# IDE & Editor Files
+.idea/
+*.iml
+.kotlin/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Android Studio & Build internals
+/captures
+.externalNativeBuild
+.cxx
+lint/
+intermediates/
+outputs/
+reports/

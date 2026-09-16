@@ -1,0 +1,6 @@
+{
+  "name": "News Publisher",
+  "description": "Production-ready AI-powered automatic news publishing platform with multi-LLM orchestration, Tavily web research, Quality Gate, SEO engine, Blogger and Facebook integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

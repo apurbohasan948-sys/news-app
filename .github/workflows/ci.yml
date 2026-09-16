@@ -1,0 +1,68 @@
+name: CI/CD Pipeline - AI Newsroom Automation
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  validate-and-test:
+    name: Lint, Test & Type Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Grant Execute Permission for Gradle
+        run: chmod +x gradlew || true
+
+      - name: Check Environment Config Template
+        run: |
+          if [ ! -f .env.example ]; then
+            echo "ERROR: .env.example is missing!"
+            exit 1
+          fi
+          echo "Environment configuration template verified."
+
+      - name: Run Code Compilation & Type Checking
+        run: ./gradlew compileDebugKotlin --no-daemon
+
+      - name: Run JVM Unit & Robolectric Tests
+        run: ./gradlew testDebugUnitTest --no-daemon
+
+      - name: Run Android Lint Checks
+        run: ./gradlew lintDebug --no-daemon
+        continue-on-error: true
+
+      - name: Assemble Debug APK
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Upload Debug Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: newsroom-app-debug
+          path: app/build/outputs/apk/debug/*.apk
+          retention-days: 7
+
+  database-schema-validation:
+    name: Database Migration Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Verify SQL Migration Files
+        run: |
+          test -f database/schema.sql && echo "Canonical schema exists." || exit 1
+          test -d database/migrations && echo "Migration directory verified." || exit 1
