@@ -20,7 +20,6 @@ local.properties
 *.pem
 *.jks
 *.keystore
-!debug.keystore
 secrets/
 
 # IDE & Editor Files

@@ -30,13 +30,6 @@ jobs:
       - name: Grant Execute Permission for Gradle
         run: chmod +x gradlew
 
-      - name: Restore Debug Keystore
-        run: |
-          if [ ! -f debug.keystore ] && [ -f debug.keystore.base64 ]; then
-            echo "Restoring debug.keystore from debug.keystore.base64"
-            base64 -d debug.keystore.base64 > debug.keystore
-          fi
-
       - name: Check Environment Config Template
         run: |
           if [ ! -f .env.example ]; then
